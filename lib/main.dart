@@ -13,8 +13,9 @@ class BooklyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp( // Change to GetMaterial from get
-       theme: ThemeData().copyWith(
+    return  GetMaterialApp( // Change Material App to GetMaterial from get
+    debugShowCheckedModeBanner: false,
+       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor:kPrimaryColor,
        ),
       home: const SplashView(),
