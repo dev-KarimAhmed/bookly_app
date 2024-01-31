@@ -1,5 +1,8 @@
+import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/assets.dart';
+import 'package:bookly_app/features/home/presentation/view_model/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({Key? key}) : super(key: key);
@@ -16,14 +19,15 @@ class _SplashViewBodyState extends State<SplashViewBody>
   @override
   void initState() {
     super.initState();
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    slidingAnimation =
-        Tween<Offset>(begin: const Offset(0, 2), end: Offset.zero)
-            .animate(animationController);
+    initAnimation();
+    goToHome();
+  }
 
-    // Start the animation
-    animationController.forward();
+  void goToHome() {
+    Future.delayed(const Duration(seconds: 2), () {
+      Get.to(const HomeView(),
+          transition: Transition.fadeIn, duration: kTransitionDuration);
+    });
   }
 
   @override
@@ -43,19 +47,44 @@ class _SplashViewBodyState extends State<SplashViewBody>
         const SizedBox(
           height: 8,
         ),
-        AnimatedBuilder(
-          animation: slidingAnimation,
-          builder: (context, _) {
-            return SlideTransition(
-              position: slidingAnimation,
-              child: const Text(
-                'Read Free Books',
-                textAlign: TextAlign.center,
-              ),
-            );
-          },
-        ),
+        SlidingAnimationText(slidingAnimation: slidingAnimation),
       ],
+    );
+  }
+
+  void initAnimation() {
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    slidingAnimation =
+        Tween<Offset>(begin: const Offset(0, 2), end: Offset.zero)
+            .animate(animationController);
+
+    // Start the animation
+    animationController.forward();
+  }
+}
+
+class SlidingAnimationText extends StatelessWidget {
+  const SlidingAnimationText({
+    super.key,
+    required this.slidingAnimation,
+  });
+
+  final Animation<Offset> slidingAnimation;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: slidingAnimation,
+      builder: (context, _) {
+        return SlideTransition(
+          position: slidingAnimation,
+          child: const Text(
+            'Read Free Books',
+            textAlign: TextAlign.center,
+          ),
+        );
+      },
     );
   }
 }
