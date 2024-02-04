@@ -22,6 +22,9 @@ class HomeViewBody extends StatelessWidget {
             'Best Seller',
             style: Styles.textStyle18,
           ),
+          SizedBox(
+            height: 20,
+          ),
           BestSellerListViewItem(),
         ],
       ),
@@ -50,6 +53,21 @@ class BestSellerListViewItem extends StatelessWidget {
                         'https://img.freepik.com/free-photo/3d-rendered-illustration-tiger-cartoon-character-isolated-white-background_1142-36687.jpg?size=626&ext=jpg')),
               ),
             ),
+          ),
+          const SizedBox(
+            width: 30,
+          ),
+          Column(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: const Text(
+                  'Harry Potter and the Goblet of Fire',
+                  maxLines: 2,
+                  style: Styles.textStyle20,
+                ),
+              ),
+            ],
           ),
         ],
       ),
