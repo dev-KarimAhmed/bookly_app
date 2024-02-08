@@ -4,7 +4,7 @@ sealed class FeaturedBooksState extends Equatable {
   const FeaturedBooksState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props =>  [];
 }
 
 final class FeaturedBooksInitial extends FeaturedBooksState {}
