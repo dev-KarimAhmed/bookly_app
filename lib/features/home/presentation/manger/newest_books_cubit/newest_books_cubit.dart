@@ -11,7 +11,7 @@ class NewestBooksCubit extends Cubit<NewestBooksState> {
    //use the home repo to fetch the newest books
    // I didn't use HomeRepoImpl because it's not a singleton
 
-  Future<void> fetchFeaturedBooks() async {
+  Future<void> fetchNewestBooks() async {
     emit(NewestBooksLoading());
     var result = await homeRepo.fetchNewestBooks();
 

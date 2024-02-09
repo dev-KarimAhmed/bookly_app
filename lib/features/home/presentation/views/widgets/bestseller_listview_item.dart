@@ -1,12 +1,16 @@
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/core/utils/custom_progress_indicator.dart';
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/features/home/presentation/views/widgets/book_rating.dart';
+import 'package:bookly_app/features/home/presentation/views/widgets/custom_book_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class BookListViewItem extends StatelessWidget {
-  const BookListViewItem({super.key});
-
+  const BookListViewItem({super.key, this.bookModel});
+  final BookModel? bookModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -17,19 +21,8 @@ class BookListViewItem extends StatelessWidget {
         height: 125,
         child: Row(
           children: [
-            AspectRatio(
-              aspectRatio: 2.7 / 4,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.red,
-                  image: const DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          'https://img.freepik.com/free-photo/3d-rendered-illustration-tiger-cartoon-character-isolated-white-background_1142-36687.jpg?size=626&ext=jpg')),
-                ),
-              ),
-            ),
+            CustomBookImage(
+                imageUrl: bookModel?.volumeInfo?.imageLinks?.thumbnail),
             const SizedBox(
               width: 30,
             ),
@@ -39,8 +32,9 @@ class BookListViewItem extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    child: const Text(
-                      'Harry Potter and the Goblet of Fire',
+                    child: Text(
+                      bookModel?.volumeInfo?.title ??
+                          'Harry Potter and the Goblet of Fire',
                       maxLines: 2,
                       style: Styles.textStyle20,
                     ),
@@ -48,8 +42,8 @@ class BookListViewItem extends StatelessWidget {
                   const SizedBox(
                     height: 3,
                   ),
-                  const Text(
-                    'J.K Rowling',
+                  Text(
+                    bookModel?.volumeInfo?.authors?[0] ?? 'J.K Rowling',
                     style: Styles.textStyle14,
                   ),
                   const SizedBox(
@@ -59,12 +53,17 @@ class BookListViewItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '19.99',
+                        bookModel?.saleInfo?.listPrice?.amount == null
+                            ? 'Free'
+                            : '${bookModel?.saleInfo?.listPrice?.amount}\$',
                         style: Styles.textStyle20
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      const BookRating(),
+                      BookRating(
+                        ratintg: '0.0',
+                        count: bookModel?.volumeInfo?.pageCount,
+                      ),
                     ],
                   ),
                 ],
