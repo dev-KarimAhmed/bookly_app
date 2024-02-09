@@ -8,6 +8,8 @@ part 'newest_books_state.dart';
 class NewestBooksCubit extends Cubit<NewestBooksState> {
   NewestBooksCubit(this.homeRepo) : super(NewestBooksInitial());
    final HomeRepo homeRepo;
+   //use the home repo to fetch the newest books
+   // I didn't use HomeRepoImpl because it's not a singleton
 
   Future<void> fetchFeaturedBooks() async {
     emit(NewestBooksLoading());
