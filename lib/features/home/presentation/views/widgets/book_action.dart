@@ -6,13 +6,13 @@ class BookAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: CustomButton(
-              text: '19.99',
+              text: 'Free',
               backgroundColor: Colors.white,
               textColor: Colors.black,
               borderRadius: BorderRadius.only(
@@ -23,11 +23,17 @@ class BookAction extends StatelessWidget {
           ),
           Expanded(
             child: CustomButton(
+              onTap: () async {
+                // Uri url = Uri.parse(bookModel.volumeInfo!.previewLink!);
+                // if (await canLaunchUrl(url)) {
+                //   await launchUrl(url);
+                // }
+              },
               text: 'Free Preview',
               fontSize: 16,
-              backgroundColor: Color(0xffEf8263),
+              backgroundColor: const Color(0xffEf8263),
               textColor: Colors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),
                 bottomRight: Radius.circular(16),
               ),
