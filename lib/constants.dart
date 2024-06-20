@@ -7,3 +7,4 @@ const String kMyImage =
     'https://img.freepik.com/premium-photo/adorable-3d-cat-characters-wear-cute-funny-colorful-clothes_784625-1152.jpg?w=740';
 
 const String kFeaturedBox = 'featured_box';    
+const String kNewestBox = 'newest_box';    

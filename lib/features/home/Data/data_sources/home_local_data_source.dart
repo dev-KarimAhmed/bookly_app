@@ -10,19 +10,16 @@ abstract class HomeLocalDataSource {
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   @override
   List<BookEntity> fetchFeaturedBooks() {
-   return getDataFromHiveBox(kFeaturedBox);
+    return getDataFromHiveBox(kFeaturedBox);
   }
-
-
 
   @override
   List<BookEntity> fetchNewestBooks() {
-    // TODO: implement fetchNewestBooks
-    throw UnimplementedError();
+    return getDataFromHiveBox(kNewestBox);
   }
 
-    List<BookEntity> getDataFromHiveBox(String boxName) {
-     var box = Hive.box<BookEntity>(boxName);
+  List<BookEntity> getDataFromHiveBox(String boxName) {
+    var box = Hive.box<BookEntity>(boxName);
     return box.values.toList();
   }
 }
