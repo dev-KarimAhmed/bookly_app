@@ -1,4 +1,5 @@
 import 'package:bookly_app/core/utils/styles.dart';
+import 'package:bookly_app/features/home/domain/entities/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manger/fetch_feature_books_cubit/fetch_feature_books_cubit.dart';
 import 'package:bookly_app/features/home/presentation/views/widgets/bes_seller_listview.dart';
 import 'package:bookly_app/features/home/presentation/views/widgets/custom_appBar.dart';
@@ -47,21 +48,43 @@ class HomeViewBody extends StatelessWidget {
   }
 }
 
-class HorizontalListViewBloc extends StatelessWidget {
+class HorizontalListViewBloc extends StatefulWidget {
   const HorizontalListViewBloc({
     super.key,
   });
 
   @override
+  State<HorizontalListViewBloc> createState() => _HorizontalListViewBlocState();
+}
+
+class _HorizontalListViewBlocState extends State<HorizontalListViewBloc> {
+  List<BookEntity> books = [];
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FetchFeatureBooksCubit, FetchFeatureBooksState>(
-      builder: (context, state) {
+    return BlocConsumer<FetchFeatureBooksCubit, FetchFeatureBooksState>(
+      listener: (context, state) {
         if (state is FetchFeatureBooksSuccess) {
-          return  CustomBooksListView(books: state.books,);
+          books = state.books;
+        }
+        if (state is FetchFeatureBooksFailurePagination) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is FetchFeatureBooksSuccess ||
+            state is FetchFeatureBooksLoadingPagination ||
+            state is FetchFeatureBooksFailurePagination) {
+          return CustomBooksListView(
+            books: books,
+          );
         } else if (state is FetchFeatureBooksFailure) {
           return Text(state.message);
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: Colors.deepOrange,));
         }
       },
     );

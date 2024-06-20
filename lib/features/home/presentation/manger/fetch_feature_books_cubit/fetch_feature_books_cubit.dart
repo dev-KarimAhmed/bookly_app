@@ -10,10 +10,18 @@ class FetchFeatureBooksCubit extends Cubit<FetchFeatureBooksState> {
   HomeRepo homeRepo;
 
   Future<void> fetchFeaturedBooks({int pageNumber = 0}) async {
-    emit(FetchFeatureBooksLoading());
+    if (pageNumber == 0) {
+      emit(FetchFeatureBooksLoading());
+    } else {
+      emit(FetchFeatureBooksLoadingPagination());
+    }
     var result = await homeRepo.fetchFeaturedBooks(pageNumber: pageNumber);
     result.fold((failure) {
-      emit(FetchFeatureBooksFailure(failure.errMessage));
+      if (pageNumber == 0) {
+        emit(FetchFeatureBooksFailure(failure.errMessage));
+      } else {
+        emit(FetchFeatureBooksFailurePagination(failure.errMessage));
+      }
     }, (books) {
       emit(FetchFeatureBooksSuccess(books));
     });

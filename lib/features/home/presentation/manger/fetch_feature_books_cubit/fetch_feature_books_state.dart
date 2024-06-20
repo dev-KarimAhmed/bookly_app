@@ -10,6 +10,7 @@ sealed class FetchFeatureBooksState extends Equatable {
 final class FetchFeatureBooksInitial extends FetchFeatureBooksState {}
 
 final class FetchFeatureBooksLoading extends FetchFeatureBooksState {}
+final class FetchFeatureBooksLoadingPagination extends FetchFeatureBooksState {}
 
 final class FetchFeatureBooksSuccess extends FetchFeatureBooksState {
   final List<BookEntity> books;
@@ -19,4 +20,8 @@ final class FetchFeatureBooksSuccess extends FetchFeatureBooksState {
 final class FetchFeatureBooksFailure extends FetchFeatureBooksState {
   final String message;
   const FetchFeatureBooksFailure(this.message);
+}
+final class FetchFeatureBooksFailurePagination extends FetchFeatureBooksState {
+  final String message;
+  const FetchFeatureBooksFailurePagination(this.message);
 }
