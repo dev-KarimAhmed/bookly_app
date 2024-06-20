@@ -17,7 +17,7 @@ class CustomBooksListView extends StatefulWidget {
 
 class _CustomBooksListViewState extends State<CustomBooksListView> {
   late ScrollController _scrollController;
-
+  int nextPage = 1;
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,7 @@ class _CustomBooksListViewState extends State<CustomBooksListView> {
       final position = _scrollController.position;
       if (position.pixels >= position.maxScrollExtent * 0.7) {
         // We have scrolled to 70% of the list
-        BlocProvider.of<FetchFeatureBooksCubit>(context).fetchFeaturedBooks();
+        BlocProvider.of<FetchFeatureBooksCubit>(context).fetchFeaturedBooks(pageNumber: nextPage++);
       }
     }
   }
