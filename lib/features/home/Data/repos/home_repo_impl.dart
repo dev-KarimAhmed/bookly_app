@@ -15,7 +15,7 @@ class HomeRepoImpl implements HomeRepo {
     required this.localDataSource,
   });
   @override
-  Future<Either<Failure, List<BookEntity>>> fetchFeaturedBooks() async {
+  Future<Either<Failure, List<BookEntity>>> fetchFeaturedBooks({int pageNumber = 0}) async {
     try {
       List<BookEntity> books = [];
       books = localDataSource.fetchFeaturedBooks();

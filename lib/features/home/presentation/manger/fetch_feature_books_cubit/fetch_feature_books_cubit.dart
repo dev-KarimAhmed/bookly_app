@@ -9,9 +9,9 @@ class FetchFeatureBooksCubit extends Cubit<FetchFeatureBooksState> {
   FetchFeatureBooksCubit(this.homeRepo) : super(FetchFeatureBooksInitial());
   HomeRepo homeRepo;
 
-  Future<void> fetchFeaturedBooks() async {
+  Future<void> fetchFeaturedBooks({int pageNumber = 0}) async {
     emit(FetchFeatureBooksLoading());
-    var result = await homeRepo.fetchFeaturedBooks();
+    var result = await homeRepo.fetchFeaturedBooks(pageNumber: pageNumber);
     result.fold((failure) {
       emit(FetchFeatureBooksFailure(failure.errMessage));
     }, (books) {
