@@ -1,6 +1,7 @@
 import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:bookly_app/core/utils/service_locator.dart';
+import 'package:bookly_app/core/utils/simple_bloc_observer.dart';
 import 'package:bookly_app/features/home/Data/repos/home_repo_impl.dart';
 import 'package:bookly_app/features/home/domain/entities/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manger/fetch_feature_books_cubit/fetch_feature_books_cubit.dart';
@@ -16,6 +17,7 @@ void main() async {
   Hive.registerAdapter(BookEntityAdapter());
   await Hive.openBox<BookEntity>(kFeaturedBox);
   await Hive.openBox<BookEntity>(kNewestBox);
+  Bloc.observer = SimpleBlocObserver();
   setupServiceLocator();
   runApp(const BooklyApp());
 }
