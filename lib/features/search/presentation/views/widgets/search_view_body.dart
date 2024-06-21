@@ -24,30 +24,30 @@ class SearchViewBody extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          Expanded(
-            child: SearchResultListView(),
-          ),
+          // Expanded(
+          //   child: SearchResultListView(),
+          // ),
         ],
       ),
     );
   }
 }
 
-class SearchResultListView extends StatelessWidget {
-  const SearchResultListView({super.key});
+// class SearchResultListView extends StatelessWidget {
+//   const SearchResultListView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: BookListViewItem(),
-        );
-      },
-      itemCount: 10,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       physics: const BouncingScrollPhysics(),
+//       padding: EdgeInsets.zero,
+//       itemBuilder: (context, index) {
+//         return const Padding(
+//           padding: EdgeInsets.symmetric(vertical: 10),
+//           child: BookListViewItem(),
+//         );
+//       },
+//       itemCount: 10,
+//     );
+//   }
+// }

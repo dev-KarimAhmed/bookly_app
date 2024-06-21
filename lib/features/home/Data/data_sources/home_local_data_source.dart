@@ -13,6 +13,9 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
     return getDataFromHiveBox(kFeaturedBox, pageNumber: pageNumber);
   }
 
+
+
+
   @override
   List<BookEntity> fetchNewestBooks() {
     return getDataFromHiveBox(kNewestBox);

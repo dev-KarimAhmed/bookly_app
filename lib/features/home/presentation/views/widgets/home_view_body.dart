@@ -1,6 +1,7 @@
 import 'package:bookly_app/core/utils/styles.dart';
 import 'package:bookly_app/features/home/domain/entities/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manger/fetch_feature_books_cubit/fetch_feature_books_cubit.dart';
+import 'package:bookly_app/features/home/presentation/manger/fetch_newest_books_cubit/fetch_newest_books_cubit.dart';
 import 'package:bookly_app/features/home/presentation/views/widgets/bes_seller_listview.dart';
 import 'package:bookly_app/features/home/presentation/views/widgets/custom_appBar.dart';
 import 'package:bookly_app/features/home/presentation/views/widgets/custom_books_listview.dart';
@@ -40,10 +41,38 @@ class HomeViewBody extends StatelessWidget {
         SliverFillRemaining(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: BestSellerListview(),
+            child: NewestBooksListViewBloc(),
           ),
         ),
       ],
+    );
+  }
+}
+
+class NewestBooksListViewBloc extends StatelessWidget {
+  const NewestBooksListViewBloc({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<FetchNewestBooksCubit, FetchNewestBooksState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        if (state is FetchNewestBooksSuccess) {
+          return NewestBooksListview(
+            books: state.books,
+          );
+        } else if (state is FetchNewestBooksFailure) {
+          return Text(state.errMessage);
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
@@ -84,7 +113,10 @@ class _HorizontalListViewBlocState extends State<HorizontalListViewBloc> {
         } else if (state is FetchFeatureBooksFailure) {
           return Text(state.message);
         } else {
-          return const Center(child: CircularProgressIndicator(color: Colors.deepOrange,));
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Colors.deepOrange,
+          ));
         }
       },
     );
